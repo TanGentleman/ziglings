@@ -80,7 +80,7 @@ pub fn main() !void {
     y ^= x;
 
     // What must be written here?
-    ???;
+    x ^= y;
 
     print("x = {b}; y = {b}\n", .{ x, y });
 }
@@ -100,5 +100,9 @@ pub fn main() !void {
 //    | Celebration |
 //    | Area  * * * |
 //    +-------------+
+// woohoo, i did 100 exercises in zig! i am thankful for my team @ Corridor who smile when i talk
+// about this language.
+// jake, you're really cool, and i am grateful for your mentorship in designing scalable systems.
+// as I build programs like tracers (github.com/TanGentleman/tracers), you inspire me.
 //
 // Please keep your celebrating within the area provided.
