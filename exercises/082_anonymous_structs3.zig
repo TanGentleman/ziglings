@@ -74,35 +74,26 @@ fn printTuple(tuple: anytype) void {
     //     @typeInfo() - takes a type, returns a TypeInfo union
     //                   with fields specific to that type.
     //
-    //     The list of a struct type's fields can be found in
-    //     TypeInfo's @"struct".fields.
+    //     The list of a struct type's field types can be found in
+    //     TypeInfo's @"struct".field_types.
     //
     //     Example:
     //
-    //         @typeInfo(Circle).@"struct".fields
+    //         @typeInfo(Circle).@"struct".field_types
     //
-    // This will be an array of StructFields.
-    const fields = (@typeInfo(@TypeOf(tuple))).@"struct".fields;
+    // This will be an array of field types.
+    const field_types = @typeInfo(@TypeOf(tuple)).@"struct".field_types;
+
+    // This will be an array of field names.
+    const field_names = @typeInfo(@TypeOf(tuple)).@"struct".field_names;
 
     // 2. Loop through each field. This must be done at compile
     // time.
     //
     //     Hint: remember 'inline' loops?
     //
-    inline for (fields) |field| {
+    inline for (field_types, field_names) |field_type, field_name| {
         // 3. Print the field's name, type, and value.
-        //
-        //     Each 'field' in this loop is one of these:
-        //
-        //         pub const StructField = struct {
-        //             name: [:0]const u8,
-        //             type: type,
-        //             default_value_ptr: ?*const anyopaque,
-        //             is_comptime: bool,
-        //             alignment: comptime_int,
-        //         };
-        //
-        //     Note we will learn about 'anyopaque' type later
         //
         //     You'll need this builtin:
         //
@@ -123,9 +114,9 @@ fn printTuple(tuple: anytype) void {
         // for declarations. If it's a value, it looks for data.
         //
         print("\"{s}\"({any}):{any} ", .{
-            field.name,
-            field.type,
-            @field(tuple, field.name),
+            field_name,
+            field_type,
+            @field(tuple, field_name),
         });
     }
 }
